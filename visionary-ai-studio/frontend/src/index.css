@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-fog: #edf1f6;
+  --color-paper: #f9fbfd;
+  --color-ink: #0f1b33;
+  --color-slate: #55627a;
+  --color-line: #d5dce7;
+  --color-cobalt: #2440f0;
+  --color-cobalt-deep: #1a2fc4;
+  --color-marigold: #ffb800;
+  --color-coral: #d63a16;
+  --color-mint: #0b7f5d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-fog);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+section[id],
+footer[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cobalt);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 88;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* Faint graph-paper grid behind the hero, fading out toward the bottom */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, rgb(15 27 51 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 27 51 / 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent);
+  mask-image: linear-gradient(to bottom, black 50%, transparent);
+}
+
+/* Detection demo: scan line sweeps once, boxes appear as it passes */
+@keyframes box-in {
+  from { opacity: 0; transform: scale(1.05); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes scan-sweep {
+  0%   { transform: translateX(0); opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateX(640px); opacity: 0; }
+}
+
+.det {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: box-in 0.35s ease-out both;
+}
+.scan-line {
+  animation: scan-sweep 1.5s linear both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .det { animation: none; }
+  .scan-line { display: none; }
+}
