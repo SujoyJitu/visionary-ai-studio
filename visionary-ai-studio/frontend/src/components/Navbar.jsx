@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Logo from './Logo.jsx'
 import Button from './Button.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 
 const LINKS = [
   { label: 'Features', href: '/#features' },
@@ -12,6 +13,7 @@ const LINKS = [
 ]
 
 export default function Navbar() {
+  const { user } = useAuth()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -49,14 +51,20 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Link
-            to="/login"
-            className="rounded-lg px-3 py-2 text-[15px] font-medium text-ink transition-colors hover:bg-ink/5"
-          >
-            Log in
-          </Link>
-          <Button to="/register" variant="outline">Sign up</Button>
-          <Button to="/register">Get started</Button>
+          {user ? (
+            <Button to="/dashboard">Dashboard</Button>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="rounded-lg px-3 py-2 text-[15px] font-medium text-ink transition-colors hover:bg-ink/5"
+              >
+                Log in
+              </Link>
+              <Button to="/register" variant="outline">Sign up</Button>
+              <Button to="/register">Get started</Button>
+            </>
+          )}
         </div>
 
         <button
@@ -96,9 +104,15 @@ export default function Navbar() {
                 ))}
               </ul>
               <div className="mt-5 flex flex-col gap-2">
-                <Button to="/register" size="lg">Get started</Button>
-                <Button to="/register" variant="outline" size="lg">Sign up</Button>
-                <Button to="/login" variant="outline" size="lg">Log in</Button>
+                {user ? (
+                  <Button to="/dashboard" size="lg">Dashboard</Button>
+                ) : (
+                  <>
+                    <Button to="/register" size="lg">Get started</Button>
+                    <Button to="/register" variant="outline" size="lg">Sign up</Button>
+                    <Button to="/login" variant="outline" size="lg">Log in</Button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

@@ -1,13 +1,14 @@
 import { Github, Mail } from 'lucide-react'
 import Logo from './Logo.jsx'
 import Button from './Button.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 
 const COLUMNS = [
   {
     title: 'Product',
     links: [
       { label: 'Features', href: '/#features' },
-      { label: 'Dashboard', href: '/login' },
+      { label: 'Dashboard', href: '/dashboard' },
       { label: 'Pricing', href: '#' },
     ],
   },
@@ -30,6 +31,8 @@ const COLUMNS = [
 ]
 
 export default function Footer() {
+  const { user } = useAuth()
+
   return (
     <footer id="about" className="bg-ink text-white">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
@@ -40,7 +43,12 @@ export default function Footer() {
               Create an account, upload a photo, and see what the model finds.
             </p>
           </div>
-          <Button to="/register" variant="accent" size="lg" className="self-start md:self-auto">
+          <Button
+            to={user ? '/analyze' : '/register'}
+            variant="accent"
+            size="lg"
+            className="self-start md:self-auto"
+          >
             Start analyzing
           </Button>
         </div>
