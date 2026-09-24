@@ -3,6 +3,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import Analyze from './pages/Analyze.jsx'
 import DashboardPlaceholder from './pages/DashboardPlaceholder.jsx'
 import NotFound from './pages/NotFound.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
@@ -19,10 +20,7 @@ export default function App() {
       <Route element={<ProtectedRoute />}>
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route
-            path="/analyze"
-            element={<DashboardPlaceholder title="Analyze" text="Image upload and analysis come in the next steps." />}
-          />
+          <Route path="/analyze" element={<Analyze />} />
           <Route
             path="/history"
             element={<DashboardPlaceholder title="History" text="Your saved analyses will be listed here." />}
